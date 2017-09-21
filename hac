@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+const Homeassistant = require('node-homeassistant')
+const program = require('commander')
+const state = require('./src/state')
+const call = require('./src/call')
+
+// todo: implement api password
+program
+  .version('1.0.0')
+  .description('Controlle homeassistant from the command line')
+  .option('-p, --password', 'API password')
+  .option('-v, --verbos', 'Give more information during runtime')
+
+let home = new Homeassistant({
+  password: program.password,
+  host: '10.1.0.166'
+})
+
+const log = (msg) => {
+  if (program.verbos) console.log(msg)
+}
+
+home.on('connection', log)
+
+program
+  .command('call')
+  .description('call homeassistant service')
+  .option('-d, --hadomain [hadomain]', 'Domain to call')
+  .option('-s, --haservice [haservice]', 'Service to call')
+  .option('-r, --service-data [data]', 'Additional service data')
+  .action(call(home, log))
+
+program
+  .command('state')
+  .description('query the state and subscribe to changes')
+  .option('-e, --entity [entity]')
+  .option('-s, --subscribe')
+  .action(state(home))
+
+program.parse(process.argv)
