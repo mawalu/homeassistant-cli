@@ -1,40 +1,27 @@
 #!/usr/bin/env node
-const Homeassistant = require('node-homeassistant')
 const program = require('commander')
-const state = require('./src/state')
-const call = require('./src/call')
+const main = require('./src/main')
 
-// todo: implement api password
 program
   .version('1.0.0')
   .description('Controlle homeassistant from the command line')
-  .option('-p, --password', 'API password')
-  .option('-v, --verbos', 'Give more information during runtime')
-
-let home = new Homeassistant({
-  password: program.password,
-  host: '10.1.0.166'
-})
-
-const log = (msg) => {
-  if (program.verbos) console.log(msg)
-}
-
-home.on('connection', log)
+  .option('-a, --api-password [password]', 'API password')
+  .option('-i, --ip [ip]', 'the ip or hostname of your homeassistant instance')
+  .option('-p, --port [port]', 'the port of your homeassistant instance')
+  .option('-v, --verbos', 'give more information during runtime')
 
 program
   .command('call')
-  .description('call homeassistant service')
-  .option('-d, --hadomain [hadomain]', 'Domain to call')
-  .option('-s, --haservice [haservice]', 'Service to call')
-  .option('-r, --service-data [data]', 'Additional service data')
-  .action(call(home, log))
+  .arguments('<domain> <service>')
+  .description('Call homeassistant service')
+  .option('-s, --service-data [data]', 'additional service data')
+  .action(main('call', program))
 
 program
   .command('state')
-  .description('query the state and subscribe to changes')
-  .option('-e, --entity [entity]')
-  .option('-s, --subscribe')
-  .action(state(home))
+  .arguments('<entity>')
+  .description('Query the state and subscribe to changes')
+  .option('-s, --subscribe', 'subscribe to state changes')
+  .action(main('state', program))
 
 program.parse(process.argv)

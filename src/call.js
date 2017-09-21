@@ -1,5 +1,8 @@
-module.exports = (home, log) => async (options) => {
-  if (!options.hadomain || !options.haservice) {
+module.exports = async (home, log, args) => {
+  let domain, service, options
+  [domain, service, options] = args
+
+  if (!domain || !service) {
     console.log('Domain and service option are required')
     process.exit(1)
   }
@@ -7,8 +10,8 @@ module.exports = (home, log) => async (options) => {
   await home.connect()
 
   let request = {
-    domain: options.hadomain,
-    service: options.haservice
+    domain,
+    service
   }
 
   if (options.serviceData) request.service_data = JSON.parse(options.serviceData)
