@@ -1,6 +1,6 @@
 # homeassistant-cli
 
-A simple cli tool for [home assistant](https://home-assistant.io/) that uses [node-homeassistant](https://github.com/Mawalu/node-homeassistant)
+A simple cli tool for [Home Assistant](https://home-assistant.io/) that uses [node-homeassistant](https://github.com/Mawalu/node-homeassistant).
 
 ## Installation
 
@@ -8,7 +8,7 @@ A simple cli tool for [home assistant](https://home-assistant.io/) that uses [no
 $ npm install -g homeassistant-cli
 ```
 
-If there is an permission error you have to reconfigure npm or use sudo.
+If there is an permission error you have to reconfigure npm or use sudo
 
 ## Usage
 
@@ -41,12 +41,26 @@ $ hac state -s sun.sun
 Custom hostname, port and password
 
 ```shell
-$ hac --ip 10.1.0.166 --port 80 state sun.sun
+$ hac --ip 10.1.0.166 --port 80 --api-password "hunter4" state sun.sun
 ```
 
 To find shorthands and some extra parameters use
 
 ```shell
 $ hac --help
+```
+
+## Scripting example
+
+You can use this to access Home Assistant from your scripts
+
+```bash
+#!/bin/bash
+
+hac state -s light.komode | while read -r change; do
+  state=$(echo "$change" | jq ".new_state.state")
+
+  echo "Light is now $state"
+done
 ```
 

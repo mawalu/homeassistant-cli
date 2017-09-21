@@ -3,7 +3,7 @@ const program = require('commander')
 const main = require('./src/main')
 
 program
-  .version('1.0.1')
+  .version('1.0.2')
   .description('Controlle homeassistant from the command line')
   .option('-a, --api-password [api-password]', 'API password')
   .option('-i, --ip [ip]', 'the ip or hostname of your homeassistant instance')
