@@ -1,6 +1,6 @@
 module.exports = async (home, log, args) => {
-  let entity = args[0]
-  let options = args[1]
+  let entity, options
+  [entity, options] = args
 
   await home.connect() 
 

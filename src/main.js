@@ -8,7 +8,8 @@ module.exports = (command, program) => (...args) => {
   }
 
   const home = new Homeassistant({
-    password: program.password,
+    password: program.apiPassword,
+    port: program.port || 8123,
     host: program.ip || '127.0.0.1'
   })
   
