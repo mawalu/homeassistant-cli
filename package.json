@@ -7,7 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.11.0",
-    "node-homeassistant": "^1.3.0"
+    "node-homeassistant": "^1.5.0"
   },
   "bin": {
     "hac": "./hac"
