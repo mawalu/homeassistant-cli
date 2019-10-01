@@ -6,6 +6,7 @@ program
   .version('1.0.2')
   .description('Controlle homeassistant from the command line')
   .option('-a, --api-password [api-password]', 'API password')
+  .option('-t, --api-token [api-token]', 'API token')
   .option('-i, --ip [ip]', 'the ip or hostname of your homeassistant instance')
   .option('-p, --port [port]', 'the port of your homeassistant instance')
   .option('-v, --verbos', 'give more information during runtime')
