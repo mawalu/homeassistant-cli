@@ -1,13 +1,13 @@
 {
   "name": "homeassistant-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "hac",
   "repository": "https://github.com/mawalu/homeassistant-cli",
   "author": "Martin Wagner <web@mawalabs.de>",
   "license": "MIT",
   "dependencies": {
     "commander": "^2.11.0",
-    "node-homeassistant": "^1.5.0"
+    "node-homeassistant": "^1.6.0"
   },
   "bin": {
     "hac": "./hac"
